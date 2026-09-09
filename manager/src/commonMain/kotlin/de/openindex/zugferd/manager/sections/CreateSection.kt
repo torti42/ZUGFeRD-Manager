@@ -1,6 +1,8 @@
 /*
  * Copyright (c) 2024-2025 Andreas Rudolph <andy@openindex.de>.
  *
+ * Changed 2026 Torsten Neumann <torsten@tn-consulting.com>
+
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -823,7 +825,7 @@ private fun ColumnScope.ItemForm(
                     ),
                     value = item.price,
                     minPrecision = 2,
-                    maxPrecision = 2,
+                    maxPrecision = 4,
                     requiredIndicator = true,
                     onValueChange = { newPrice ->
                         if (newPrice != null) {

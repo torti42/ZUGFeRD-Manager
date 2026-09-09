@@ -1,8 +1,10 @@
-# OpenIndex ZUGFeRD-Manager 1.3.2
+# OpenIndex ZUGFeRD-Manager 1.3.3
 
 <img src="./share/icons/application.svg" align="right" height="125" alt="OpenIndex ZUGFeRD-Manager">
 
 🇩🇪 Dies ist eine kostenfreie Desktop-Anwendung für Windows, MacOS & Linux zur Erstellung und Überprüfung von E-Rechnungen im ZUGFeRD-Format.
+
+Diese Version ist als Clone der Originalversion von OpenIndex entstanden, um einige Features hinzuzufügen. 
 
 🇺🇸 This is a free desktop application for Windows, MacOS & Linux, that creates and validates ZUGFeRD invoices. Please scroll down for information about development in English language.
 

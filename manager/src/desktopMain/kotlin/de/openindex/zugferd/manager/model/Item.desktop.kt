@@ -1,6 +1,8 @@
 /*
  * Copyright (c) 2024-2025 Andreas Rudolph <andy@openindex.de>.
  *
+ * Changed 2026 Torsten Neumann <torsten@tn-consulting.com>
+
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,7 +31,7 @@ fun Item.build(): _Item? =
     _Item()
         .setProduct(product?.build())
         .setQuantity(quantity.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN))
-        .setPrice(price.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN))
+        .setPrice(price.toBigDecimal())
         .let { item ->
             val n = notes?.trimToNull()
             if (n != null) {
