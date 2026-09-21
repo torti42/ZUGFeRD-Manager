@@ -140,6 +140,8 @@ import de.openindex.zugferd.zugferd_manager.generated.resources.AppCreateSummary
 import de.openindex.zugferd.zugferd_manager.generated.resources.AppCreateSummaryGross
 import de.openindex.zugferd.zugferd_manager.generated.resources.AppCreateSummaryNet
 import de.openindex.zugferd.zugferd_manager.generated.resources.AppCreateSummaryTax
+import de.openindex.zugferd.zugferd_manager.generated.resources.AppCreateTradeAgreement
+import de.openindex.zugferd.zugferd_manager.generated.resources.AppCreateTradeAgreementBuyerOrderReference
 import de.openindex.zugferd.zugferd_manager.generated.resources.Res
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -373,6 +375,17 @@ private fun CreateView(state: CreateSectionState) {
             text = stringResource(Res.string.AppCreate, selectedPdfName).title(),
         )
 
+        // Subsection with trade agreement data.
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            SectionSubTitle(
+                text = Res.string.AppCreateTradeAgreement,
+            )
+
+            TradeAgreementForm(state)
+        }
         // Subsection with form for general information.
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -484,19 +497,24 @@ private fun DetailsView(state: CreateSectionState) {
 }
 
 /**
- * Form for editing general information about the e-invoice.
+ * Form for trade agreement data (sender, receiver, buyer reference)
  */
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-@Suppress("UnusedReceiverParameter")
-private fun ColumnScope.GeneralForm(state: CreateSectionState) {
+private fun ColumnScope.TradeAgreementForm(
+    state: CreateSectionState
+) {
     val scope = rememberCoroutineScope()
+
     val preferences = LocalAppState.current.preferences
 
     val senders = LocalAppState.current.senders
     val sendersList = derivedStateOf {
         if (state.invoiceSender?.isSaved == false) {
-            listOf(state.invoiceSender!!, *senders.senders.toTypedArray())
+            listOf(
+                state.invoiceSender!!,
+                *senders.senders.toTypedArray()
+            )
         } else {
             senders.senders
         }
@@ -505,11 +523,76 @@ private fun ColumnScope.GeneralForm(state: CreateSectionState) {
     val recipients = LocalAppState.current.recipients
     val recipientsList = derivedStateOf {
         if (state.invoiceRecipient?.isSaved == false) {
-            listOf(state.invoiceRecipient!!, *recipients.recipients.toTypedArray())
+            listOf(
+                state.invoiceRecipient!!,
+                *recipients.recipients.toTypedArray()
+            )
         } else {
             recipients.recipients
         }
     }
+
+    // Field for the invoice sender / issuer.
+    TradePartyFieldWithAdd(
+        label = Res.string.AppCreateGeneralSender,
+        addLabel = Res.string.AppCreateGeneralSenderAdd,
+        editLabel = Res.string.AppCreateGeneralSenderEdit,
+        tradeParty = state.invoiceSender,
+        tradeParties = sendersList.value,
+        requiredIndicator = true,
+        onSelect = { sender, savePermanently ->
+            state.invoiceSender = sender
+            if (sender != null && savePermanently) {
+                scope.launch {
+                    senders.put(sender, preferences)
+                }
+            } else if (sender?.isSaved == true) {
+                preferences.setPreviousSenderKey(sender._key)
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+    )
+
+    // Field for the invoice recipient.
+    TradePartyFieldWithAdd(
+        label = Res.string.AppCreateGeneralRecipient,
+        addLabel = Res.string.AppCreateGeneralRecipientAdd,
+        editLabel = Res.string.AppCreateGeneralRecipientEdit,
+        tradeParty = state.invoiceRecipient,
+        tradeParties = recipientsList.value,
+        requiredIndicator = true,
+        onSelect = { recipient, savePermanently ->
+            state.invoiceRecipient = recipient
+            state.invoicePaymentMethod = recipient?._defaultPaymentMethod ?: state.invoicePaymentMethod
+            if (recipient != null && savePermanently) {
+                scope.launch {
+                    recipients.put(recipient)
+                }
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+    )
+
+    TextField(
+        label = Res.string.AppCreateTradeAgreementBuyerOrderReference,
+        value = state.buyerOrderReference,
+        requiredIndicator = false,
+        onValueChange = {
+            state.buyerOrderReference = it
+        },
+        modifier = Modifier.fillMaxWidth(),
+    )
+}
+
+/**
+ * Form for editing general information about the e-invoice.
+ */
+@Composable
+@OptIn(ExperimentalFoundationApi::class)
+@Suppress("UnusedReceiverParameter")
+private fun ColumnScope.GeneralForm(state: CreateSectionState) {
 
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -522,48 +605,6 @@ private fun ColumnScope.GeneralForm(state: CreateSectionState) {
             modifier = Modifier
                 .weight(1f, fill = true),
         ) {
-            // Field for the invoice sender / issuer.
-            TradePartyFieldWithAdd(
-                label = Res.string.AppCreateGeneralSender,
-                addLabel = Res.string.AppCreateGeneralSenderAdd,
-                editLabel = Res.string.AppCreateGeneralSenderEdit,
-                tradeParty = state.invoiceSender,
-                tradeParties = sendersList.value,
-                requiredIndicator = true,
-                onSelect = { sender, savePermanently ->
-                    state.invoiceSender = sender
-                    if (sender != null && savePermanently) {
-                        scope.launch {
-                            senders.put(sender, preferences)
-                        }
-                    } else if (sender?.isSaved == true) {
-                        preferences.setPreviousSenderKey(sender._key)
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
-            )
-
-            // Field for the invoice recipient.
-            TradePartyFieldWithAdd(
-                label = Res.string.AppCreateGeneralRecipient,
-                addLabel = Res.string.AppCreateGeneralRecipientAdd,
-                editLabel = Res.string.AppCreateGeneralRecipientEdit,
-                tradeParty = state.invoiceRecipient,
-                tradeParties = recipientsList.value,
-                requiredIndicator = true,
-                onSelect = { recipient, savePermanently ->
-                    state.invoiceRecipient = recipient
-                    state.invoicePaymentMethod = recipient?._defaultPaymentMethod ?: state.invoicePaymentMethod
-                    if (recipient != null && savePermanently) {
-                        scope.launch {
-                            recipients.put(recipient)
-                        }
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
-            )
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),

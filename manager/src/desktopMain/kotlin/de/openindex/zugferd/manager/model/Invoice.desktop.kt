@@ -1,6 +1,8 @@
 /*
  * Copyright (c) 2024-2025 Andreas Rudolph <andy@openindex.de>.
  *
+ * Changed September 2026 Torsten Neumann <torsten@tn-consulting.com>
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,6 +42,7 @@ import org.mustangproject.ZUGFeRD.ZUGFeRD2PullProvider
 import org.mustangproject.ZUGFeRD.ZUGFeRDExporterFromA1
 import org.mustangproject.ZUGFeRD.ZUGFeRDExporterFromA3
 import org.mustangproject.ZUGFeRD.ZUGFeRDExporterFromPDFA
+import org.mustangproject.ReferencedDocument
 import java.io.ByteArrayOutputStream
 import java.nio.charset.StandardCharsets
 import java.text.DateFormat
@@ -59,6 +62,14 @@ fun Invoice.build(method: PaymentMethod): _Invoice =
         .setDueDate(dueDate.toJavaDate())
         .setDeliveryDate(deliveryDate?.toJavaDate())
         .setDetailedDeliveryPeriod(deliveryStartDate?.toJavaDate(), deliveryEndDate?.toJavaDate())
+        .let { invoice ->
+            if (buyerOrderReference.isNotBlank()) {
+                invoice.setBuyerOrderReferencedDocumentID(
+                    buyerOrderReference.trim()
+                )
+            }
+            invoice
+        }
         .setPaymentTermDescription(
             runBlocking {
                 when (method) {
@@ -72,7 +83,6 @@ fun Invoice.build(method: PaymentMethod): _Invoice =
                         DATE_FORMAT.format(dueDate.toJavaDate()),
                     )
 
-                    else -> null
                 }
             }
         )

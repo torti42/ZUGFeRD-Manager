@@ -1,4 +1,4 @@
-# OpenIndex ZUGFeRD-Manager 1.3.3
+# OpenIndex ZUGFeRD-Manager 1.4.0
 
 <img src="./share/icons/application.svg" align="right" height="125" alt="OpenIndex ZUGFeRD-Manager">
 

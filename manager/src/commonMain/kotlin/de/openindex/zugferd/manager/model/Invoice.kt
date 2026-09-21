@@ -1,6 +1,8 @@
 /*
  * Copyright (c) 2024-2025 Andreas Rudolph <andy@openindex.de>.
  *
+ * September 2026, Changed by Torsten Neumann
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -45,6 +47,10 @@ data class Invoice(
     val deliveryEndDate: LocalDate? = null,
     val sender: TradeParty? = null,
     val recipient: TradeParty? = null,
+
+    // BT-13 - Purchase order reference
+    val buyerOrderReference: String = "",
+
     val currency: String? = null,
     val items: List<Item> = listOf(),
 )

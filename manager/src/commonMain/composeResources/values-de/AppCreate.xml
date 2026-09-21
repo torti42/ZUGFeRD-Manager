@@ -52,6 +52,9 @@ PLEASE CONSIDER THESE NOTES BEFORE STARTING YOUR TRANSLATION WORK!
     </string>
     <string name="AppCreateConvertExperimental">experimentell</string>
 
+    <string name="AppCreateTradeAgreement">Vertrag</string>
+    <string name="AppCreateTradeAgreementBuyerOrderReference">Bestellnummer</string>
+
     <string name="AppCreateGeneral">Eckdaten bearbeiten</string>
     <string name="AppCreateGeneralSender">Ersteller der Rechnung</string>
     <string name="AppCreateGeneralSenderAdd">neuer Ersteller</string>

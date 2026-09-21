@@ -244,6 +244,13 @@ class CreateSectionState : SectionState() {
         set(value) {
             _invoice.value = _invoice.value.copy(recipient = value)
         }
+    var buyerOrderReference: String
+        get() = _invoice.value.buyerOrderReference
+        set(value) {
+            _invoice.value = _invoice.value.copy(
+                buyerOrderReference = value
+            )
+        }
     var invoiceItems: List<Item>
         get() = _invoice.value.items.sortedBy { it._uid }
         set(value) {
