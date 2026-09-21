@@ -242,14 +242,14 @@ compose.desktop {
                 targetFormats(TargetFormat.Exe)
             }
 
-            //includeAllModules = true
+            includeAllModules = true
 
             modules(
                 "java.base", // Defines the foundational APIs of the Java SE Platform.
-                //"java.compiler", // Defines the Language Model, Annotation Processing, and Java Compiler APIs.
+                "java.compiler", // Defines the Language Model, Annotation Processing, and Java Compiler APIs.
                 "java.datatransfer", //Defines the API for transferring data between and within applications.
                 "java.desktop", //Defines the AWT and Swing user interface toolkits, plus APIs for accessibility, audio, imaging, printing, and JavaBeans.
-                //"java.instrument", //Defines services that allow agents to instrument programs running on the JVM.
+                "java.instrument", //Defines services that allow agents to instrument programs running on the JVM.
                 "java.logging",  // Defines the Java Logging API.
                 "java.management", //Defines the Java Management Extensions (JMX) API.
                 //"java.management.rmi", // Defines the RMI connector for the Java Management Extensions (JMX) Remote API.
@@ -259,10 +259,10 @@ compose.desktop {
                 //"java.rmi", // Defines the Remote Method Invocation (RMI) API.
                 //"java.scripting", // Defines the Scripting API.
                 //"java.se", // Defines the API of the Java SE Platform.
-                //"java.security.jgss", // Defines the Java binding of the IETF Generic Security Services API (GSS-API).
+                "java.security.jgss", // Defines the Java binding of the IETF Generic Security Services API (GSS-API).
                 //"java.security.sasl", // Defines Java support for the IETF Simple Authentication and Security Layer (SASL).
                 //"java.smartcardio", // Defines the Java Smart Card I/O API.
-                //"java.sql", // Defines the JDBC API.
+                "java.sql", // Defines the JDBC API.
                 //"java.sql.rowset", // Defines the JDBC RowSet API.
                 //"java.transaction.xa", // Defines an API for supporting distributed transactions in JDBC.
                 "java.xml", // Defines the Java APIs for XML Processing (JAXP).
@@ -300,11 +300,11 @@ compose.desktop {
                 //"jdk.net", // Defines the JDK-specific Networking API.
                 //"jdk.nio.mapmode", // Defines JDK-specific file mapping modes.
                 //"jdk.sctp", // Defines the JDK-specific API for SCTP.
-                //"jdk.security.auth", // Provides implementations of the javax.security.auth.* interfaces and various authentication modules.
+                "jdk.security.auth", // Provides implementations of the javax.security.auth.* interfaces and various authentication modules.
                 //"jdk.security.jgss", // Defines JDK extensions to the GSS-API and an implementation of the SASL GSSAPI mechanism.
-                //"jdk.xml.dom", // Defines the subset of the W3C Document Object Model (DOM) API that is not part of the Java SE API.
+                "jdk.xml.dom", // Defines the subset of the W3C Document Object Model (DOM) API that is not part of the Java SE API.
                 //"jdk.zipfs", // Provides the implementation of the Zip file system provider.
-
+                "jdk.unsupported",
                 //
                 // Jetbrains JDK specific modules
                 //
@@ -824,7 +824,7 @@ tasks {
             val runtimeLibDir = runtimeImageDir
                 .dir("lib")
 
-            val cefLocalesDir = runtimeLibDir
+            val cefLocalesDir = runtimeBinDir
                 .dir("locales")
 
             val cefTranslations = listOf(
@@ -838,6 +838,9 @@ tasks {
                 // Copy required files from JAVA_HOME.
                 listOf(
                     "icudtl.dat",
+                    "chrome_100_percent.pak",
+                    "chrome_200_percent.pak",
+                    "resources.pak",
                     "jcef_helper.exe",
                     "v8_context_snapshot.bin",
                 ).forEach {
@@ -851,11 +854,18 @@ tasks {
                     }
                 }
 
-                // Delete unnecessary translations.
-                cefLocalesDir.asFile.listFiles()
-                    ?.filter { it.isFile }
-                    ?.filter { !cefTranslations.contains(it.name.lowercase()) }
-                    ?.forEach { it.delete() }
+                // Copy locales
+                cefTranslations.forEach {
+                    copy {
+                        from(
+                        File(SystemUtils.JAVA_HOME)
+                            .resolve("bin")
+                            .resolve("locales")
+                            .resolve(it)
+                        )
+                        into(cefLocalesDir)
+                    }
+                }
             }
         }
     }
