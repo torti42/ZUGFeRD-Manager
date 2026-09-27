@@ -48,7 +48,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup signing for MacOS
         if: ${{ inputs.signing_enabled && (matrix.os == 'macos-latest' || matrix.os == 'macos-13') }}
@@ -100,56 +100,56 @@ jobs:
           ./gradlew clean bundle
 
       - name: Upload MacOSX-arm64 (dmg)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'macos-latest' }}
         with:
           name: MacOSX-dmg-arm64
           path: build/*.dmg
 
       - name: Upload Linux-x64 (deb)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: Linux-deb-x64
           path: build/*.deb
 
       - name: Upload Linux-x64 (rpm)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: Linux-rpm-x64
           path: build/*.rpm
 
       - name: Upload Linux-x64 (tar.gz)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'ubuntu-latest' }}
         with:
           name: Linux-archive-x64
           path: build/*.tar.gz
 
       - name: Upload Windows-x64 (exe)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'windows-latest' }}
         with:
           name: Windows-exe-x64
           path: build/*.exe
 
       - name: Upload Windows-x64 (zip)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'windows-latest' }}
         with:
           name: Windows-archive-x64
           path: build/*.zip
 
       - name: Upload Windows-ARM64 (exe)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'windows-11-arm' }}
         with:
           name: Windows-exe-arm64
           path: build/*.exe
 
       - name: Upload Windows-ARM64 (zip)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: ${{ matrix.os == 'windows-11-arm' }}
         with:
           name: Windows-archive-arm64
