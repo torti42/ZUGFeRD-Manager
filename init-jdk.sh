@@ -5,6 +5,13 @@
 # -------------------------------------------------------------------
 #
 # Copyright (c) 2024-2025 Andreas Rudolph <andy@openindex.de>.
+
+#
+# Copyright (c) 2026 Torsten Neumann <torsten@tn-consulting.com>
+#
+# Changes for ARM64 support
+#
+
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -30,8 +37,9 @@
 # see https://github.com/JetBrains/JetBrainsRuntime
 # see https://github.com/JetBrains/JetBrainsRuntime/releases
 #
+PARAM_ARCH="$1"
 
-JBR_VERSION="21.0.6b825.69"
+JBR_VERSION="21.0.11b1163.116"
 
 set -e
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -67,6 +75,11 @@ if [ -z "${ARCH}" ]; then
   echo "Unsupported system architecture: $(uname -m)"
   exit 1
 fi
+if [ "x" != "x$PARAM_ARCH" ]; then
+  if [ "$PARAM_ARCH" = "ARM64" ]; then
+    ARCH="aarch64";
+  fi
+fi
 
 echo ""
 echo "==================================================================="
@@ -79,7 +92,8 @@ DOWNLOAD_URL="https://cache-redirector.jetbrains.com/intellij-jbr/${BASE_NAME}.t
 DOWNLOAD_DIR="${JDK_DIR}/${BASE_NAME}"
 DOWNLOAD_FILE="${JDK_DIR}/${BASE_NAME}.tar.gz"
 
-if [ ! -d "${DOWNLOAD_DIR}" ]; then
+if [
+} ! -d "${DOWNLOAD_DIR}" ]; then
   if [ ! -f "${DOWNLOAD_FILE}" ]; then
     echo "Downloading from \"${DOWNLOAD_URL}\"..."
     wget -q "${DOWNLOAD_URL}"

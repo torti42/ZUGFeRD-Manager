@@ -84,8 +84,14 @@ jobs:
         run: choco install wget
 
       - name: Init JetBrains JDK
+        if: ${{ matrix.os != 'windows-11-arm' }}
         shell: bash
         run: ./init-jdk.sh
+
+      - name: Init JetBrains JDK ARM64
+        if: ${{ matrix.os == 'windows-11-arm' }}
+        shell: bash
+        run: ./init-jdk.sh ARM64
 
       - name: Build with Gradle
         shell: bash

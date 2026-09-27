@@ -82,7 +82,7 @@ buildInfo {
     gitlabCi = false
 
     customFields = mapOf(
-        "VENDOR" to "OpenIndex",
+        "VENDOR" to "TN Consulting GmbH",
     )
 }
 
@@ -227,8 +227,8 @@ compose.desktop {
 
             packageName = applicationPackageName
             //packageVersion = project.version.toString()
-            vendor = "OpenIndex"
-            copyright = "© $copyrightYear OpenIndex. All rights reserved."
+            vendor = "TNConsultingGmbH"
+            copyright = "© $copyrightYear TN Consulting GmbH. All rights reserved."
             description = "A desktop application for creating and validating e-invoices."
             licenseFile = rootProject.file("LICENSE.txt")
 
@@ -322,9 +322,9 @@ compose.desktop {
             linux {
                 appCategory = "misc"
                 appRelease = libs.versions.application.revision.get()
-                menuGroup = "OpenIndex-ZUGFeRD"
-                installationPath = "/opt/OpenIndex-${applicationPackageName}"
-                debMaintainer = "andy@openindex.de"
+                menuGroup = "TNConsulting-ZUGFeRD"
+                installationPath = "/opt/TNConsulting-${applicationPackageName}"
+                debMaintainer = "support@tnconsulting.com"
                 rpmLicenseType = "Apache-2.0"
                 packageVersion = project.version.toString()
                 iconFile.set(rootProject.layout.projectDirectory.dir("share").dir("icons").file("application.png"))
@@ -382,7 +382,7 @@ compose.desktop {
 
             windows {
                 packageVersion = project.version.toString()
-                menuGroup = "OpenIndex-ZUGFeRD"
+                menuGroup = "TNConsulting-ZUGFeRD"
                 upgradeUuid = "c8ce1e91-7f6f-45a6-a1c5-14020bc7c5e3"
                 console = false
                 dirChooser = true
@@ -399,7 +399,7 @@ tasks {
     }
 
     register("bundle") {
-        group = "OpenIndex"
+        group = "TNConsulting"
         description = "Create application bundle for current operating system."
 
         if (isLinux) {
@@ -418,7 +418,7 @@ tasks {
 
     if (isLinux) {
         register<Tar>("bundleLinuxArchive") {
-            group = "OpenIndex"
+            group = "TNConsulting"
             description = "Create application archive for Linux."
             dependsOn("createReleaseDistributable")
 
@@ -434,7 +434,7 @@ tasks {
         }
 
         register<Copy>("bundleLinuxDeb") {
-            group = "OpenIndex"
+            group = "TNConsulting"
             description = "Create deb installer for Linux."
             dependsOn("packageReleaseDistributionForCurrentOS")
 
@@ -451,7 +451,7 @@ tasks {
         }
 
         register<Copy>("bundleLinuxRpm") {
-            group = "OpenIndex"
+            group = "TNConsulting"
             description = "Create rpm installer for Linux."
             dependsOn("packageReleaseDistributionForCurrentOS")
 
@@ -621,7 +621,7 @@ tasks {
         }
 
         register<Copy>("bundleMacDmg") {
-            group = "OpenIndex"
+            group = "TNConsulting"
             description = "Create dmg installer for MacOS."
 
             // We currently don't use automatic notarization by the CMP Gradle plugin.
@@ -773,7 +773,7 @@ tasks {
 
     if (isWindows) {
         register<Zip>("bundleWindowsArchive") {
-            group = "OpenIndex"
+            group = "TNConsulting"
             description = "Create application archive for Windows."
             dependsOn("createReleaseDistributable")
 
@@ -788,7 +788,7 @@ tasks {
         }
 
         register("bundleWindowsExe") {
-            group = "OpenIndex"
+            group = "TNConsulting"
             description = "Create exe installer for Windows."
             dependsOn("packageReleaseDistributionForCurrentOS")
 

@@ -1,4 +1,4 @@
-rootProject.name = "OpenIndex-ZUGFeRD"
+rootProject.name = "TNConsulting-ZUGFeRD"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
