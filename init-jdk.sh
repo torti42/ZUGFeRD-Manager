@@ -92,8 +92,7 @@ DOWNLOAD_URL="https://cache-redirector.jetbrains.com/intellij-jbr/${BASE_NAME}.t
 DOWNLOAD_DIR="${JDK_DIR}/${BASE_NAME}"
 DOWNLOAD_FILE="${JDK_DIR}/${BASE_NAME}.tar.gz"
 
-if [
-} ! -d "${DOWNLOAD_DIR}" ]; then
+if [ ! -d "${DOWNLOAD_DIR}" ]; then
   if [ ! -f "${DOWNLOAD_FILE}" ]; then
     echo "Downloading from \"${DOWNLOAD_URL}\"..."
     wget -q "${DOWNLOAD_URL}"
