@@ -1,4 +1,4 @@
-name: release assets
+name: release assets 1
 
 on:
   release:
