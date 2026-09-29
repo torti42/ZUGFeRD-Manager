@@ -4,21 +4,20 @@
 
 🇩🇪 Dies ist eine kostenfreie Desktop-Anwendung für Windows, MacOS & Linux zur Erstellung und Überprüfung von E-Rechnungen im ZUGFeRD-Format.
 
-Diese Version ist als Clone der Originalversion von OpenIndex entstanden, um einige Features hinzuzufügen. 
+Diese Version ist als Clone der Originalversion von OpenIndex entstanden, um einige Features hinzuzufügen - zum Beispiel die Angabe einer Bestellnummer.
 
 🇺🇸 This is a free desktop application for Windows, MacOS & Linux, that creates and validates ZUGFeRD invoices. Please scroll down for information about development in English language.
 
 
 ## Download
 
-| Windows                                                                                                                                  | MacOS                                                                                                                                        | Linux                                                                                                                                     |
-|------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="./share/os-logos/windows.png" width="100" alt="Windows">                                                                       | <img src="./share/os-logos/apple.png" width="90" alt="MacOS">                                                                                | <img src="./share/os-logos/linux.png" width="100" alt="Linux">                                                                            |
-| [EXE-Installer](https://github.com/OpenIndex/ZUGFeRD-Manager/releases/download/v1.3.2/ZUGFeRD-Manager-1.3.2-windows-x64.exe)<br>(x86_64) | [DMG-Archiv](https://github.com/OpenIndex/ZUGFeRD-Manager/releases/download/v1.3.2/ZUGFeRD-Manager-1.3.2-macos-arm64.dmg)<br>(M1 oder neuer) | [DEB-Installer](https://github.com/OpenIndex/ZUGFeRD-Manager/releases/download/v1.3.2/ZUGFeRD-Manager-1.3.2-linux-x64.deb)<br>(x86_64)    |
-| [ZIP-Archiv](https://github.com/OpenIndex/ZUGFeRD-Manager/releases/download/v1.3.2/ZUGFeRD-Manager-1.3.2-windows-x64.zip)<br>(x86_64)    | [DMG-Archiv](https://github.com/OpenIndex/ZUGFeRD-Manager/releases/download/v1.3.2/ZUGFeRD-Manager-1.3.2-macos-x64.dmg)<br>(Intel)           | [RPM-Installer](https://github.com/OpenIndex/ZUGFeRD-Manager/releases/download/v1.3.2/ZUGFeRD-Manager-1.3.2-linux-x64.rpm)<br>(x86_64)    |
-|                                                                                                                                          |                                                                                                                                              | [TAR.GZ-Archiv](https://github.com/OpenIndex/ZUGFeRD-Manager/releases/download/v1.3.2/ZUGFeRD-Manager-1.3.2-linux-x64.tar.gz)<br>(x86_64) |
+| Windows                                                                 | Windows ARM64                                                             |
+|-------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| <img src="./share/os-logos/windows.png" width="100" alt="Windows">      | <img src="./share/os-logos/windows.png" width="90" alt="Windows ARM64">   |
+| [EXE-Installer](https://github.com/torti42/ZUGFeRD-Manager/releases/download/v1.4.0/ZUGFeRD-Manager-1.4.0-windows-x64.exe)<br>(x86_64) | [EXE-Installer](https://github.com/torti42/ZUGFeRD-Manager/releases/download/v1.4.0/ZUGFeRD-Manager-1.4.0-windows-arm64.exe)<br>(aarch64) |
+| [ZIP-Archiv](https://github.com/torti42/ZUGFeRD-Manager/releases/download/v1.4.0/ZUGFeRD-Manager-1.4.0-windows-x64.zip)<br>(x86_64)    | [ZIP-Archiv](https://github.com/torti42/ZUGFeRD-Manager/releases/download/v1.4.0/ZUGFeRD-Manager-1.4.0-windows-arm64.zip)<br>(aarch64)    |                                                                                     
 
-Ältere Versionen sind in der [Release-Übersicht](https://github.com/OpenIndex/ZUGFeRD-Manager/releases) zu finden.
+Ältere Versionen sind in der [Release-Übersicht](https://github.com/torti42/ZUGFeRD-Manager/releases) zu finden.
 
 
 ## Zielgruppe
