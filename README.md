@@ -69,6 +69,10 @@ Sie können und sollten Ihre eigenen erzeugten E-Rechnungen sowie auch von Ander
 
 Die Software steht kostenfrei unter den Bedingungen der [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) zur Verfügung (Open Source). Die Autoren übernehmen keinerlei Haftung für eventuelle Schäden, die aus der Nutzung dieser Software resultieren.
 
+## Offene Punkte
+
+Wenn beim Erzeugen der e-Rechnung kein Lieferdatum angegeben wird, sondern nur "Start der Leistung" und "Ende der Leistung", können manche Validierer die Fehlermeldung ausgeben, dass das folgende Feld im XML fehlt:
+```XPath: /rsm:CrossIndustryInvoice/rsm:SupplyChainTradeTransaction[1]/ram:ApplicableHeaderTradeDelivery[1]```
 
 ## 🇺🇸 Information about development 🇺🇸
 
